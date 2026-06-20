@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+#Importamos os para manejar rutas de archivos y directorios 1
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -29,6 +31,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+#2Agregamos la aplicacion Flota a la lista de aplicaciones instaladas
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -37,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'Flota',
 ]
 
 MIDDLEWARE = [
@@ -101,8 +105,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
+#Cambiamos el idioma a español 3
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-ec'
 
 TIME_ZONE = 'UTC'
 
