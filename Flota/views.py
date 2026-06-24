@@ -156,7 +156,7 @@ def dashboard_chofer(request):
 def nuevo_reporte_falla(request):
     perfil = request.user.perfil
     vehiculos = Vehiculo.objects.filter(asignado_a=perfil)
-    
+
     if request.method == 'POST':
         vehiculo_id = request.POST.get('vehiculo')
         titulo = request.POST.get('titulo')
@@ -164,9 +164,23 @@ def nuevo_reporte_falla(request):
         gravedad = request.POST.get('gravedad')
         foto = request.FILES.get('foto')
         archivo = request.FILES.get('archivo_adjunto')
-        
-        vehiculo = get_object_or_404(Vehiculo, id=vehiculo_id, asignado_a=perfil)
-        
+
+        if not vehiculo_id:
+            messages.error(request, "Debe seleccionar un vehículo")
+            return render(request, "nuevo_reporte_falla.html", {'vehiculos': vehiculos})
+
+        try:
+            vehiculo_id = int(vehiculo_id)
+        except ValueError:
+            messages.error(request, "Vehículo inválido")
+            return render(request, "nuevo_reporte_falla.html", {'vehiculos': vehiculos})
+
+        vehiculo = get_object_or_404(
+            Vehiculo,
+            id=vehiculo_id,
+            asignado_a=perfil
+        )
+
         reporte = ReporteFalla(
             vehiculo=vehiculo,
             chofer=perfil,
@@ -177,10 +191,10 @@ def nuevo_reporte_falla(request):
             archivo_adjunto=archivo
         )
         reporte.save()
-        
+
         messages.success(request, 'Reporte de falla guardado correctamente')
         return redirect('dashboard_chofer')
-    
+
     return render(request, "nuevo_reporte_falla.html", {'vehiculos': vehiculos})
 
 # ================================================

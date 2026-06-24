@@ -2,13 +2,16 @@
 {% load static %}
 
 {% block contenido %}
+<main class="main">
+  <section id="hero" class="hero section dark-background">
+    <img src="{% static 'assets/img/hero-bg.jpg' %}" class="hero-bg" alt="" data-aos="fade-in">
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <h2><b>Reportar Falla</b></h2>
             <hr>
             
-            <form method="post" enctype="multipart/form-data">
+            <form method="post" id="form_falla" enctype="multipart/form-data">
                 {% csrf_token %}
                 
                 <div class="mb-3">
@@ -57,4 +60,62 @@
         </div>
     </div>
 </div>
+<script>
+$("#form_falla").validate({
+    rules: {
+        vehiculo: {
+            required: true
+        },
+        titulo: {
+            required: true,
+            minlength: 5,
+            maxlength: 100
+        },
+        descripcion: {
+            required: true,
+            minlength: 10
+        },
+        gravedad: {
+            required: true
+        },
+        foto: {
+            extension: "jpg|jpeg|png"
+        },
+        archivo_adjunto: {
+            extension: "pdf|doc|docx|jpg|jpeg|png"
+        }
+    },
+    messages: {
+        vehiculo: {
+            required: "Seleccione un vehículo"
+        },
+        titulo: {
+            required: "Ingrese un título",
+            minlength: "El título debe tener al menos 5 caracteres",
+            maxlength: "El título no puede superar 100 caracteres"
+        },
+        descripcion: {
+            required: "Ingrese una descripción",
+            minlength: "La descripción debe tener al menos 10 caracteres"
+        },
+        gravedad: {
+            required: "Seleccione la gravedad"
+        },
+        foto: {
+            extension: "Solo se permiten imágenes (jpg, jpeg, png)"
+        },
+        archivo_adjunto: {
+            extension: "Formatos permitidos: pdf, doc, docx, imágenes"
+        }
+    },
+    errorClass: "text-danger",
+    errorElement: "small",
+
+    submitHandler: function(form) {
+        form.submit();
+    }
+});
+</script>
+    </section>
+</main> 
 {% endblock %}

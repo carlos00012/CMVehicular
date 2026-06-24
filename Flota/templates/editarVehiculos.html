@@ -64,6 +64,56 @@
         </div>
     </div>
 </div>
+<script>
+$("#form_editar_vehiculo").validate({
+    rules: {
+        foto: {
+            extension: "jpg|jpeg|png"
+        },
+        placa: {
+            required: true,
+            minlength: 6,
+            maxlength: 10
+        },
+        tipo_vehiculo: {
+            required: true
+        },
+        tipo_combustible: {
+            required: true
+        },
+        anio_modelo: {
+            required: true,
+            number: true,
+            min: 1900,
+            max: 2100
+        }
+    },
+    messages: {
+        foto: {
+            extension: "Solo se permiten imágenes (jpg, jpeg, png)"
+        },
+        placa: {
+            required: "Ingrese la placa del vehículo",
+            minlength: "La placa debe tener al menos 6 caracteres",
+            maxlength: "La placa no debe superar 10 caracteres"
+        },
+        tipo_vehiculo: {
+            required: "Seleccione el tipo de vehículo"
+        },
+        tipo_combustible: {
+            required: "Seleccione el tipo de combustible"
+        },
+        anio_modelo: {
+            required: "Ingrese el año del modelo",
+            number: "Debe ser un número válido",
+            min: "El año no puede ser menor a 1900",
+            max: "El año no puede ser mayor a 2100"
+        }
+    },
+    errorClass: "text-danger",
+    errorElement: "small"
+});
+</script>
     <script>
         $('#foto').fileinput({
             language: 'es',
