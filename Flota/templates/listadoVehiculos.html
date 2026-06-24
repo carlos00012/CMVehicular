@@ -67,13 +67,30 @@
                 <td>{{ vehiculoTemporal.anio_modelo }}</td>
 
                 <td>
-                  <a href="/editarVehiculos/{{ vehiculoTemporal.id }}" class="btn btn-warning btn-sm">Editar</a>
+                  <a href="/editarVehiculos/{{ vehiculoTemporal.id }}" class="btn btn-outline-warning" title="Editar"><i class="bi-search"></i></a>
                   
                   <a href="/eliminarVehiculo/{{ vehiculoTemporal.id }}"
-                     class="btn btn-danger btn-sm"
-                     onclick="return confirm('¿Seguro que deseas eliminar este vehículo?');">
-                    Eliminar
+                     class="btn btn-outline-danger"
+                     onclick="return confirm('¿Seguro que deseas eliminar este vehículo?');"> <i class="bi-trash"></i>
+                    
                   </a>
+
+                    {%  if vehiculoTemporal.foto %}                                     
+                      <a title="Ver Imagen" class="btn btn-outline-info" href="{{ vehiculoTemporal.foto.url }}" target="_blank" >
+                        <i class="bi-image"></i>
+                      </a>                             
+                      <a title="Descargar Imagen"  class="btn btn-outline-dark" href="{{ vehiculoTemporal.foto.url }}" download >
+                        <i class="bi-download"></i>
+                      </a>                             
+ 
+                    {% else %}
+                      <a title="No hay imagen disponible" class=" disabled btn btn-outline-info" href="javascript:void(0)" >
+                        <i class="bi-image"></i>
+                      </a>                          
+                      <a  title="No hay imagen disponible" class=" disabled btn btn-outline-dark" href="javascript:void(0)">
+                        <i class="bi-download"></i>
+                      </a>  
+                    {% endif %}
                 </td>
               </tr>
               {% endfor %}
