@@ -1,0 +1,72 @@
+{% extends 'plantillaPrincipal.html' %}
+{% load static %}
+{% block contenido %}
+<main class="main">
+
+  <section id="hero" class="hero section dark-background">
+    <img src="{% static 'assets/img/hero-bg.jpg' %}" class="hero-bg" alt="" data-aos="fade-in">
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100" style="min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+      <div class="row justify-content-center w-100">
+        <div class="col-lg-5 col-md-8">
+          <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+            <div class="card-body p-4 p-md-5">
+
+              <div class="text-center mb-4">
+                <img src="{% static 'assets/img/logo.png' %}" alt="Logo" style="max-width: 90px;" class="mb-3">
+                <h3 class="mb-1">Iniciar Sesión</h3>
+                <p class="text-muted mb-0">Accede al sistema de control de flota</p>
+              </div>
+
+              <form method="post" action="">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                  <label for="id_username" class="form-label">Usuario</label>
+                  <input
+                    type="text"
+                    name="username"
+                    class="form-control form-control-lg"
+                    id="id_username"
+                    placeholder="Ingresa tu usuario"
+                    required
+                    autofocus
+                  >
+                </div>
+
+                <div class="mb-3">
+                  <label for="id_password" class="form-label">Contraseña</label>
+                  <input
+                    type="password"
+                    name="password"
+                    class="form-control form-control-lg"
+                    id="id_password"
+                    placeholder="Ingresa tu contraseña"
+                    required
+                  >
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="remember-me" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">
+                      Recordarme
+                    </label>
+                  </div>
+                  <a href="#" class="small text-decoration-none">¿Olvidaste tu contraseña?</a>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 btn-lg">
+                  Ingresar
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+{% endblock %}
