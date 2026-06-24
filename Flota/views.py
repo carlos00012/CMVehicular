@@ -103,7 +103,7 @@ def listadoMantenimientos(request):
         "autos_excedidos": autos_excedidos
     })
 
-<<<<<<< HEAD
+
 def editarVehiculos(request, id):
     vehiculoEditar = Vehiculo.objects.get(id=id)
     return render(request, 'editarVehiculos.html', {'vehiculo': vehiculoEditar})
@@ -140,8 +140,8 @@ def procesarActualizacionVehiculo(request):
         vehiculoEditar.save()
         messages.success(request, 'Vehículo actualizado correctamente.')
         return redirect('/listadoVehiculos/')
-=======
+
 
 def login(request):
     return render(request, "login.html")
->>>>>>> 63e3dee588084f0911a8c94ef9845820dad18f1c
+
