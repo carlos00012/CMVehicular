@@ -1,0 +1,157 @@
+{% extends 'plantillaPrincipal.html' %}
+{% load static %}
+
+{% block contenido %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h2><b>Panel de Gerente</b></h2>
+            <hr>
+            <p>Bienvenido <b>{{ request.user.username }}</b></p>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Total Vehículos</h5>
+                    <h3>{{ total_vehiculos }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Mantenimientos</h5>
+                    <h3>{{ total_mantenimientos }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Costo Total</h5>
+                    <h3>${{ total_costos|floatformat:2 }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Alertas</h5>
+                    <h3>{{ alertas_vencimiento|length }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <b>Alertas de Vencimiento</b>
+                </div>
+                <div class="card-body">
+                    {% if alertas_vencimiento %}
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Vehículo</th>
+                                    <th>Tipo</th>
+                                    <th>Días</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for alerta in alertas_vencimiento %}
+                                    <tr>
+                                        <td>{{ alerta.vehiculo }}</td>
+                                        <td>{{ alerta.tipo }}</td>
+                                        <td>{{ alerta.dias }} días</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>No hay alertas</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <b>Costos por Vehículo</b>
+                </div>
+                <div class="card-body">
+                    {% if costos_vehiculos %}
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Vehículo</th>
+                                    <th>Tipo</th>
+                                    <th>Costo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in costos_vehiculos %}
+                                    <tr>
+                                        <td>{{ item.vehiculo }}</td>
+                                        <td>{{ item.tipo }}</td>
+                                        <td>${{ item.total|floatformat:2 }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>No hay costos registrados</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <b>Reparaciones Pendientes de Aprobación</b>
+                </div>
+                <div class="card-body">
+                    {% if mantenimientos_pendientes %}
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Vehículo</th>
+                                    <th>Fecha</th>
+                                    <th>Tipo</th>
+                                    <th>Costo</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for m in mantenimientos_pendientes %}
+                                    <tr>
+                                        <td>{{ m.vehiculo.placa }}</td>
+                                        <td>{{ m.fecha_servicio }}</td>
+                                        <td>{{ m.tipo_mantenimiento }}</td>
+                                        <td>${{ m.costo_taller }}</td>
+                                        <td>
+                                            <a href="{% url 'aprobar_reparacion' m.id %}" class="btn btn-sm btn-success">
+                                                Aprobar
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>No hay reparaciones pendientes</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

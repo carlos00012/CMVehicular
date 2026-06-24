@@ -1,0 +1,89 @@
+{% extends 'plantillaPrincipal.html' %}
+{% load static %}
+
+{% block contenido %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h2><b>Panel del Chofer</b></h2>
+            <hr>
+            <p>Bienvenido <b>{{ request.user.username }}</b></p>
+            <a href="{% url 'nuevo_reporte_falla' %}" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> Reportar Falla
+            </a>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <b>Mis Vehículos Asignados</b>
+                </div>
+                <div class="card-body">
+                    {% if mis_vehiculos %}
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Placa</th>
+                                    <th>Tipo</th>
+                                    <th>Seguro</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for v in mis_vehiculos %}
+                                    <tr>
+                                        <td><b>{{ v.placa }}</b></td>
+                                        <td>{{ v.tipo_vehiculo }}</td>
+                                        <td>
+                                            {% if v.seguro_vigente %}
+                                                <span class="badge bg-success">Vigente</span>
+                                            {% else %}
+                                                <span class="badge bg-danger">Vencido</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>No tienes vehículos asignados</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <b>Mis Reportes de Fallas</b>
+                </div>
+                <div class="card-body">
+                    {% if mis_reportes %}
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Título</th>
+                                    <th>Vehículo</th>
+                                    <th>Gravedad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for reporte in mis_reportes %}
+                                    <tr>
+                                        <td>{{ reporte.titulo }}</td>
+                                        <td>{{ reporte.vehiculo.placa }}</td>
+                                        <td>{{ reporte.get_gravedad_display }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>No has reportado fallas</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

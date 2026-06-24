@@ -1,0 +1,92 @@
+{% extends 'plantillaPrincipal.html' %}
+{% load static %}
+
+{% block contenido %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h2><b>Reporte de Costos</b></h2>
+            <hr>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <b>Resumen General</b>
+                </div>
+                <div class="card-body">
+                    <h4>Total General: ${{ total_general|floatformat:2 }}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <b>Costos por Vehículo</b>
+                </div>
+                <div class="card-body">
+                    {% if resumen_vehiculos %}
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Vehículo</th>
+                                    <th>Tipo</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in resumen_vehiculos %}
+                                    <tr>
+                                        <td>{{ item.vehiculo }}</td>
+                                        <td>{{ item.tipo }}</td>
+                                        <td>${{ item.total|floatformat:2 }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>No hay costos registrados</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <b>Detalle de Mantenimientos</b>
+                </div>
+                <div class="card-body">
+                    {% if costos %}
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Vehículo</th>
+                                    <th>Fecha</th>
+                                    <th>Costo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for c in costos %}
+                                    <tr>
+                                        <td>{{ c.vehiculo.placa }}</td>
+                                        <td>{{ c.fecha_servicio }}</td>
+                                        <td>${{ c.costo_taller }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>No hay mantenimientos registrados</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

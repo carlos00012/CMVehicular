@@ -1,0 +1,60 @@
+{% extends 'plantillaPrincipal.html' %}
+{% load static %}
+
+{% block contenido %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2><b>Reportar Falla</b></h2>
+            <hr>
+            
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="mb-3">
+                    <label class="form-label"><b>Vehículo:</b></label>
+                    <select name="vehiculo" class="form-control" required>
+                        <option value="">Seleccione un vehículo...</option>
+                        {% for v in vehiculos %}
+                            <option value="{{ v.id }}">{{ v.placa }} - {{ v.tipo_vehiculo }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label"><b>Título:</b></label>
+                    <input type="text" name="titulo" class="form-control" placeholder="Ej: Ruido en el motor" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label"><b>Descripción:</b></label>
+                    <textarea name="descripcion" class="form-control" rows="4" required></textarea>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label"><b>Gravedad:</b></label>
+                    <select name="gravedad" class="form-control">
+                        <option value="leve">Leve</option>
+                        <option value="moderada">Moderada</option>
+                        <option value="grave">Grave</option>
+                        <option value="critica">Crítica</option>
+                    </select>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label"><b>Foto (opcional):</b></label>
+                    <input type="file" name="foto" class="form-control" accept="image/*">
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label"><b>Archivo Adjunto (opcional):</b></label>
+                    <input type="file" name="archivo_adjunto" class="form-control">
+                </div>
+                
+                <button type="submit" class="btn btn-success">Guardar Reporte</button>
+                <a href="{% url 'dashboard_chofer' %}" class="btn btn-danger">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

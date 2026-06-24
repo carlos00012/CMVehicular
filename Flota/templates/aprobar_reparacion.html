@@ -1,0 +1,41 @@
+{% extends 'plantillaPrincipal.html' %}
+{% load static %}
+
+{% block contenido %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2><b>Aprobar Reparación</b></h2>
+            <hr>
+            
+            <div class="card">
+                <div class="card-body">
+                    <p><b>Vehículo:</b> {{ mantenimiento.vehiculo.placa }}</p>
+                    <p><b>Fecha:</b> {{ mantenimiento.fecha_servicio }}</p>
+                    <p><b>Tipo:</b> {{ mantenimiento.tipo_mantenimiento }}</p>
+                    <p><b>Costo:</b> ${{ mantenimiento.costo_taller }}</p>
+                    <p><b>Repuestos:</b> {{ mantenimiento.repuestos_cambiados }}</p>
+                    
+                    <hr>
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label class="form-label"><b>Observaciones:</b></label>
+                            <textarea name="observaciones" class="form-control" rows="3"></textarea>
+                        </div>
+                        
+                        <button type="submit" name="accion" value="aprobar" class="btn btn-success">
+                            Aprobar
+                        </button>
+                        <button type="submit" name="accion" value="rechazar" class="btn btn-danger">
+                            Rechazar
+                        </button>
+                        <a href="{% url 'dashboard_gerente' %}" class="btn btn-secondary">Cancelar</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

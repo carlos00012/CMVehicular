@@ -1,8 +1,8 @@
 {% extends 'plantillaPrincipal.html' %}
 {% load static %}
+
 {% block contenido %}
 <main class="main">
-
   <section id="hero" class="hero section dark-background">
     <img src="{% static 'assets/img/hero-bg.jpg' %}" class="hero-bg" alt="" data-aos="fade-in">
 
@@ -18,32 +18,48 @@
                 <p class="text-muted mb-0">Accede al sistema de control de flota</p>
               </div>
 
-              <form method="post" action="">
+              <!-- MOSTRAR MENSAJES DE ERROR -->
+              {% if messages %}
+                {% for message in messages %}
+                  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill"></i> {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                {% endfor %}
+              {% endif %}
+
+              <form method="post" action="{% url 'login' %}">
                 {% csrf_token %}
 
                 <div class="mb-3">
-                  <label for="id_username" class="form-label">Usuario</label>
-                  <input
-                    type="text"
-                    name="username"
-                    class="form-control form-control-lg"
-                    id="id_username"
-                    placeholder="Ingresa tu usuario"
-                    required
-                    autofocus
-                  >
+                  <label for="username" class="form-label">Usuario</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-person"></i></span>
+                    <input
+                      type="text"
+                      name="username"
+                      class="form-control form-control-lg"
+                      id="username"
+                      placeholder="Ingresa tu usuario"
+                      required
+                      autofocus
+                    >
+                  </div>
                 </div>
 
                 <div class="mb-3">
-                  <label for="id_password" class="form-label">Contraseña</label>
-                  <input
-                    type="password"
-                    name="password"
-                    class="form-control form-control-lg"
-                    id="id_password"
-                    placeholder="Ingresa tu contraseña"
-                    required
-                  >
+                  <label for="password" class="form-label">Contraseña</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                    <input
+                      type="password"
+                      name="password"
+                      class="form-control form-control-lg"
+                      id="password"
+                      placeholder="Ingresa tu contraseña"
+                      required
+                    >
+                  </div>
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -57,16 +73,19 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary w-100 btn-lg">
-                  Ingresar
+                  <i class="bi bi-box-arrow-in-right"></i> Ingresar
                 </button>
               </form>
+
+              <hr class="my-4">
+              <div class="text-center">
+                <small class="text-muted">Sistema de Control de Flota y Mantenimiento Vehicular</small>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
-
 </main>
-
 {% endblock %}
