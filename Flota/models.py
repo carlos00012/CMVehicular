@@ -30,3 +30,4 @@ class Mantenimiento(models.Model):
     repuestos_cambiados = models.TextField()
     def __str__(self):
         return f"{self.vehiculo.placa} - {self.tipo_mantenimiento} - {self.fecha_servicio} - Costo: {self.costo_taller} - Repuestos: {self.repuestos_cambiados}"
+

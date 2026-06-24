@@ -115,3 +115,7 @@ def listadoMantenimientos(request):
         "mismantenimientos": mantenimientos,
         "autos_excedidos": autos_excedidos
     })
+
+
+def login(request):
+    return render(request, "login.html")
