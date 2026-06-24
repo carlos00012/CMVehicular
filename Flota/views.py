@@ -31,3 +31,9 @@ def guardarVehiculo(request):
 def listadoVehiculos(request):
     vehiculos = Vehiculo.objects.all()
     return render(request, "listadoVehiculos.html", {"misvehiculos": vehiculos})
+
+
+def eliminarVehiculo(request, id):
+    vehiculoEliminar = Vehiculo.objects.get(id=id)
+    vehiculoEliminar.delete()
+    return redirect('/listadoVehiculos/')
