@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 from django.db.models import Sum
 from datetime import datetime
+from decimal import Decimal
 from .models import Vehiculo, Mantenimiento, PerfilUsuario, ReporteFalla
 
 # ============ FUNCIONES DE VERIFICACIÓN ============
@@ -369,7 +370,7 @@ def listadoMantenimientos(request):
     mantenimientos = Mantenimiento.objects.all()
     anio_actual = datetime.now().year
     vehiculos = Vehiculo.objects.all()
-    PRESUPUESTO_LIMITE = 1000.00
+    PRESUPUESTO_LIMITE = Decimal(1000.00)
     
     autos_excedidos = []
     for auto in vehiculos:
