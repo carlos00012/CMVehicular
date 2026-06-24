@@ -90,16 +90,13 @@
 </main>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  new DataTable('#tbl_vehiculos', {
+new DataTable('#tbl_vehiculos', {
     layout: {
-      topStart: {
-        buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
-      }
+        topStart: {
+            buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+        }
     }
-  });
 });
 </script>
-
 
 {% endblock %}
