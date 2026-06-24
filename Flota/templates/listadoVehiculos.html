@@ -1,20 +1,15 @@
 {% extends "./plantillaPrincipal.html" %}
+{% load static %}
+
 {% block contenido %}
 
-    <center>
-        <br>
-        <br>
-        <br>
-        <h1><b>Vehiculos Registrados</b>            
-            <a href="/nuevoVehiculo/" class="btn btn-info"> 
-                <i class="icon-plus-circle"></i>
-                Nuevo Vehiculo
-            </a>        
-        </h1>
-        <hr>
-    </center>
-    <br>
+<main class="main">
+
+  <section id="hero" class="hero section dark-background">
+    <img src="{% static 'assets/img/hero-bg.jpg' %}" class="hero-bg" alt="" data-aos="fade-in">
+
     <div class="container">
+<<<<<<< HEAD
         <div class="row">
             <div class="col-md-12">
                 <table id="tbl_vehiculos" class="table table-striped table-bordered">
@@ -63,14 +58,99 @@
                         </tbody>
                 </table>
             </div>
+=======
+
+      <div class="text-center mt-5">
+        <h1><b>Vehículos Registrados</b></h1>
+        <a href="/nuevoVehiculo/" class="btn btn-info mt-2">
+          <i class="icon-plus-circle"></i>
+          Nuevo Vehículo
+        </a>
+      </div>
+
+      <hr>
+
+      <div class="row">
+        <div class="col-md-12">
+
+          <table id="tbl_vehiculos" class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Foto</th>
+                <th>Placa</th>
+                <th>Tipo de Vehículo</th>
+                <th>Tipo de Combustible</th>
+                <th>Seguro Vigente</th>
+                <th>Año del Modelo</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {% for vehiculoTemporal in misvehiculos %}
+              <tr>
+                <td>{{ vehiculoTemporal.id }}</td>
+
+                <td class="text-center" style="width: 80px;">
+                  {% if vehiculoTemporal.foto %}
+                    <a href="{{ vehiculoTemporal.foto.url }}" target="_blank">
+                      <img src="{{ vehiculoTemporal.foto.url }}"
+                           style="height:40px; width:40px; border-radius:50%;">
+                    </a>
+                  {% else %}
+                    <b>N/A</b>
+                  {% endif %}
+                </td>
+
+                <td>{{ vehiculoTemporal.placa }}</td>
+                <td>{{ vehiculoTemporal.tipo_vehiculo }}</td>
+                <td>{{ vehiculoTemporal.tipo_combustible }}</td>
+
+                <td class="text-center">
+                  {% if vehiculoTemporal.seguro_vigente %}
+                    <span class="badge bg-success">Sí</span>
+                  {% else %}
+                    <span class="badge bg-danger">No</span>
+                  {% endif %}
+                </td>
+
+                <td>{{ vehiculoTemporal.anio_modelo }}</td>
+
+                <td>
+                  <a href="#" class="btn btn-warning btn-sm">Editar</a>
+                  <a href="/eliminarVehiculo/{{ vehiculoTemporal.id }}"
+                     class="btn btn-danger btn-sm"
+                     onclick="return confirm('¿Seguro que deseas eliminar?');">
+                    Eliminar
+                  </a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+
+          </table>
+
+>>>>>>> 63e3dee588084f0911a8c94ef9845820dad18f1c
         </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- DataTables script (mejor fuera del layout visual) -->
 <script>
-new DataTable('#tbl_vehiculos', {
+document.addEventListener("DOMContentLoaded", function () {
+  new DataTable('#tbl_vehiculos', {
     layout: {
-        topStart: {
-            buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
-        }
+      topStart: {
+        buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+      }
     }
+  });
 });
 </script>
- {% endblock %}
+
+{% endblock %}
