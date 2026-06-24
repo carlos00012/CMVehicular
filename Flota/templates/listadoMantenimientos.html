@@ -1,5 +1,5 @@
 {% extends 'plantillaPrincipal.html' %}
-
+{% load static %}
 {% block contenido %}
 <div class="container mt-5">
     
@@ -63,12 +63,14 @@
 </div>
 
 <script>
-    $(document).ready(function() {
-        new DataTable('#tbl_mantenimientos', {
-            language: {
-                url: "https://cdn.datatables.net/plug-ins/2.2.1/i18n/es-ES.json"
-            }
-        });
-    });
+document.addEventListener("DOMContentLoaded", function () {
+  new DataTable('#tbl_mantenimientos', {
+    layout: {
+      topStart: {
+        buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+      }
+    }
+  });
+});
 </script>
 {% endblock %}
