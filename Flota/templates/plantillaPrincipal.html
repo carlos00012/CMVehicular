@@ -9,10 +9,11 @@
   <title>Vehicular</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
+  
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -25,6 +26,8 @@
   <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
   <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
   <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+
 
   <!-- Main CSS File -->
   <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
@@ -51,11 +54,11 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="#hero" class="active">Inicio</a></li>
+          <li><a href="/" class="active">Inicio</a></li>
           <li><a href="/nuevoVehiculo/">Agregar Vehículo</a></li>
           <li><a href="/listadoVehiculos/">Listado de Vehículos</a></li>
-          <li><a href="#portfolio">Portfolio</a></li>
-          <li><a href="#team">Team</a></li>
+          <li><a href="/nuevoMantenimiento/">Registrar Mantenimiento</a></li>
+          <li><a href="/listadoMantenimientos/">Historial de Mantenimientos</a></li>
           <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
               <li><a href="#">Dropdown 1</a></li>
@@ -165,6 +168,25 @@
 
   <!-- Main JS File -->
   <script src="{% static 'assets/js/main.js' %}"></script>
+
+    <!-- importando SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {% if messages %}
+
+    {% for mensaje in messages %}
+      <script>
+        Swal.fire({
+          title: "CONFIRMACION",
+          icon: "success",
+          text: "{{message}}"
+        });
+ 
+      </script>
+      
+    {% endfor %}
+
+  {% endif %}
 
 </body>
 

@@ -1,0 +1,73 @@
+{% extends 'plantillaPrincipal.html' %}
+{% block contenido %}
+<div class="container mt-5">
+    
+    {% if autos_excedidos %}
+    <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+        <h4 class="alert-heading"><i class="bi bi-exclamation-triangle-fill"></i> Alerta de Presupuesto de Reparación Excedido</h4>
+        <p>Los siguientes autos superaron el límite permitido de gastos de mantenimiento anual ($1000.00):</p>
+        <hr>
+        <ul class="mb-0">
+            {% for auto in autos_excedidos %}
+                <li>
+                    <strong>Auto [{{ auto.placa }} - {{ auto.tipo }}]:</strong> 
+                    Gastó un acumulado de <b>${{ auto.gastado }}</b>. 
+                    <span class="badge bg-dark">Exceso: ${{ auto.exceso }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    <br>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <br>
+        <br>
+        <h2>Historial de Mantenimientos</h2>
+        <a href="/nuevoMantenimiento/" class="btn btn-primary">Registrar Mantenimiento</a>
+    </div>
+
+    <table id="tbl_mantenimientos" class="table table-striped table-bordered align-middle">
+        <thead>
+            <tr>
+                <th>Vehículo (Placa)</th>
+                <th>Fecha de Servicio</th>
+                <th>Tipo</th>
+                <th>Costo</th>
+                <th>Repuestos Cambiados</th>
+                <th>Factura o Diagnóstico</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for m in mismantenimientos %}
+            <tr>
+                <td><strong>{{ m.vehiculo.placa }}</strong></td>
+                <td>{{ m.fecha_servicio }}</td>
+                <td>{{ m.tipo_mantenimiento }}</td>
+                <td>${{ m.costo_taller }}</td>
+                <td>{{ m.repuestos_cambiados }}</td>
+                <td class="text-center">
+                    {% if m.pdf %}
+                        <a href="{{ m.pdf.url }}" target="_blank" class="btn btn-sm btn-danger">
+                            <i class="bi bi-file-earmark-pdf"></i> Ver PDF
+                        </a>
+                    {% else %}
+                        <span class="text-muted">No cargado</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function() {
+        new DataTable('#tbl_mantenimientos', {
+            language: {
+                url: "https://cdn.datatables.net/plug-ins/2.2.1/i18n/es-ES.json"
+            }
+        });
+    });
+</script>
+{% endblock %}
