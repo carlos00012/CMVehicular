@@ -26,6 +26,7 @@
                             <th>Tipo de Combustible</th>
                             <th>Seguro Vigente</th>
                             <th>Año del Modelo</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                         <tbody>
@@ -51,6 +52,10 @@
                                     {% endif %}
                                 </td>
                                 <td>{{ vehiculoTemporal.anio_modelo }}</td>
+                                <td>
+                                    <a href="" class="btn btn-warning"> Editar</a>
+                                    <a href="/eliminarVehiculo/{{ vehiculoTemporal.id }}" class="btn btn-danger"> Eliminar</a>
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>
