@@ -1,0 +1,66 @@
+{% extends 'plantillaPrincipal.html' %}
+{% block contenido %}
+<div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <br>
+                <br>
+                <br>
+                <h1><b>Registrar Nuevo Vehiculo</b></h1>
+                <hr>
+                <form enctype="multipart/form-data" id="form_nuevo_vehiculo" action="/guardarVehiculo/" method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="foto" class="form-label"><b>Foto real de la fachada:</b></label>
+                        <input type="file" name="foto" id="foto" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="placa" class="form-label"><b>Placa:</b></label>
+                        <input placeholder="Ingrese la placa del vehículo" type="text" class="form-control" name="placa" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="tipo_vehiculo" class="form-label"><b>Tipo de Vehículo:</b></label>
+                        <select class="form-select" name="tipo_vehiculo" required>
+                            <option value="" selected disabled>Seleccione una opción...</option>
+                            <option value="Sedán">Sedán</option>
+                            <option value="Camioneta">Camioneta</option>
+                            <option value="Camión">Camión</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label d-block"><b>Tipo de Combustible:</b></label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="tipo_combustible" id="gasolina" value="Gasolina" required>
+                            <label class="form-check-label" for="gasolina">Gasolina</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="tipo_combustible" id="diesel" value="Diésel">
+                            <label class="form-check-label" for="diesel">Diésel</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="tipo_combustible" id="electrico" value="Eléctrico">
+                            <label class="form-check-label" for="electrico">Eléctrico</label>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" name="seguro_vigente" id="seguro_vigente">
+                        <label class="form-check-label" for="seguro_vigente"><b>¿Tiene seguro vigente?</b></label>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="anio_modelo" class="form-label"><b>Año del Modelo:</b></label>
+                        <input placeholder="Ej: 2026" type="number" class="form-control" name="anio_modelo" required>
+                    </div>
+                    <button class="btn btn-success" type="submit"> <i class="icon-save"></i>  Guardar</button>
+                         o   <a href="/listadoVehiculos" class="btn btn-danger"> Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

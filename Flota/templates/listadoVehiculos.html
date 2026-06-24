@@ -1,0 +1,61 @@
+{% extends "./plantillaPrincipal.html" %}
+{% block contenido %}
+
+    <center>
+        <br>
+        <br>
+        <br>
+        <h1><b>Vehiculos Registrados</b>            
+            <a href="/nuevoVehiculo/" class="btn btn-info"> 
+                <i class="icon-plus-circle"></i>
+                Nuevo Vehiculo
+            </a>        
+        </h1>
+        <hr>
+    </center>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Foto</th>
+                            <th>Placa</th>
+                            <th>Tipo de Vehículo</th>
+                            <th>Tipo de Combustible</th>
+                            <th>Seguro Vigente</th>
+                            <th>Año del Modelo</th>
+                        </tr>
+                    </thead>
+                        <tbody>
+                            {% for vehiculoTemporal in misvehiculos %}
+                            <tr>
+                                <td class="text-center" style="width: 80px;">
+                                    {% if vehiculoTemporal.foto %}
+                                        <a href="{{ vehiculoTemporal.foto.url }}" target="_blank">
+                                        <img src="{{ vehiculoTemporal.foto.url }}" style="height:40px; width:40px; border-radius:50%;"> 
+                                        </a>                                      
+                                    {% else %}
+                                        <b>N/A</b>
+                                    {% endif %}
+                                </td>
+                                <td>{{ vehiculoTemporal.placa }}</td>
+                                <td>{{ vehiculoTemporal.tipo_vehiculo }}</td>
+                                <td>{{ vehiculoTemporal.tipo_combustible }}</td>
+                                <td class="text-center">
+                                    {% if vehiculoTemporal.seguro_vigente %}
+                                        <span class="badge bg-success" style="color: white; background-color: #198754; padding: 3px 8px; border-radius: 4px;">Sí</span>
+                                    {% else %}
+                                        <span class="badge bg-danger" style="color: white; background-color: #dc3545; padding: 3px 8px; border-radius: 4px;">No</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ vehiculoTemporal.anio_modelo }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+ {% endblock %}

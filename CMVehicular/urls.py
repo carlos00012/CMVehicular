@@ -17,7 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include  # Agregamos include para incluir las URLs de la aplicación Flota
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('Flota.urls')),  # Agregamos esta línea para incluir las URLs de la aplicación Flota
 ]
+
+# Agregamos esta línea para servir archivos multimedia en modo de desarrollo
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  
