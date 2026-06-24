@@ -9,56 +9,6 @@
     <img src="{% static 'assets/img/hero-bg.jpg' %}" class="hero-bg" alt="" data-aos="fade-in">
 
     <div class="container">
-<<<<<<< HEAD
-        <div class="row">
-            <div class="col-md-12">
-                <table id="tbl_vehiculos" class="table table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Foto</th>
-                            <th>Placa</th>
-                            <th>Tipo de Vehículo</th>
-                            <th>Tipo de Combustible</th>
-                            <th>Seguro Vigente</th>
-                            <th>Año del Modelo</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                        <tbody>
-                            {% for vehiculoTemporal in misvehiculos %}
-                            <tr>
-                                <td>{{ vehiculoTemporal.id }}</td>
-                                <td class="text-center" style="width: 80px;">
-                                    {% if vehiculoTemporal.foto %}
-                                        <a href="{{ vehiculoTemporal.foto.url }}" target="_blank">
-                                        <img src="{{ vehiculoTemporal.foto.url }}" style="height:40px; width:40px; border-radius:50%;"> 
-                                        </a>                                      
-                                    {% else %}
-                                        <b>N/A</b>
-                                    {% endif %}
-                                </td>
-                                <td>{{ vehiculoTemporal.placa }}</td>
-                                <td>{{ vehiculoTemporal.tipo_vehiculo }}</td>
-                                <td>{{ vehiculoTemporal.tipo_combustible }}</td>
-                                <td class="text-center">
-                                    {% if vehiculoTemporal.seguro_vigente %}
-                                        <span class="badge bg-success" style="color: white; background-color: #198754; padding: 3px 8px; border-radius: 4px;">Sí</span>
-                                    {% else %}
-                                        <span class="badge bg-danger" style="color: white; background-color: #dc3545; padding: 3px 8px; border-radius: 4px;">No</span>
-                                    {% endif %}
-                                </td>
-                                <td>{{ vehiculoTemporal.anio_modelo }}</td>
-                                <td>
-                                    <a href="/editarVehiculos/{{ vehiculoTemporal.id }}" class="btn btn-warning"> Editar</a>
-                                    <a href="/eliminarVehiculo/{{ vehiculoTemporal.id }}" class="btn btn-danger"> Eliminar</a>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                </table>
-            </div>
-=======
 
       <div class="text-center mt-5">
         <h1><b>Vehículos Registrados</b></h1>
@@ -95,8 +45,7 @@
                 <td class="text-center" style="width: 80px;">
                   {% if vehiculoTemporal.foto %}
                     <a href="{{ vehiculoTemporal.foto.url }}" target="_blank">
-                      <img src="{{ vehiculoTemporal.foto.url }}"
-                           style="height:40px; width:40px; border-radius:50%;">
+                      <img src="{{ vehiculoTemporal.foto.url }}" style="height:40px; width:40px; border-radius:50%;">
                     </a>
                   {% else %}
                     <b>N/A</b>
@@ -118,10 +67,11 @@
                 <td>{{ vehiculoTemporal.anio_modelo }}</td>
 
                 <td>
-                  <a href="#" class="btn btn-warning btn-sm">Editar</a>
+                  <a href="/editarVehiculo/{{ vehiculoTemporal.id }}" class="btn btn-warning btn-sm">Editar</a>
+                  
                   <a href="/eliminarVehiculo/{{ vehiculoTemporal.id }}"
                      class="btn btn-danger btn-sm"
-                     onclick="return confirm('¿Seguro que deseas eliminar?');">
+                     onclick="return confirm('¿Seguro que deseas eliminar este vehículo?');">
                     Eliminar
                   </a>
                 </td>
@@ -131,7 +81,6 @@
 
           </table>
 
->>>>>>> 63e3dee588084f0911a8c94ef9845820dad18f1c
         </div>
       </div>
 
@@ -140,7 +89,6 @@
 
 </main>
 
-<!-- DataTables script (mejor fuera del layout visual) -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   new DataTable('#tbl_vehiculos', {
