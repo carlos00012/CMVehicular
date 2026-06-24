@@ -64,4 +64,22 @@
         </div>
     </div>
 </div>
+    <script>
+        $('#foto').fileinput({
+            language: 'es',
+            allowedFileExtensions: ['jpg', 'jpeg', 'png'],
+            showCaption: false,
+            DropZoneEnabled: true,
+            ShowClose: false,
+
+            initialPreview: [
+                "{{ vehiculo.foto.url }}"
+            ],
+            initialPreviewAsData: true, 
+            initialPreviewFileType: 'image'
+        });
+        $(".fileinput-upload").hide();
+        //con jquery ocultamos el boton de eliminar que no hacia nada dentro de la imagen
+        $(".kv-file-remove").hide();
+    </script>
 {% endblock %}
