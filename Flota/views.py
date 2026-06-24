@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Vehiculo, Mantenimiento
+from django.contrib import messages
 # Create your views here.
 
 def inicio(request):
@@ -26,6 +27,7 @@ def guardarVehiculo(request):
             anio_modelo=anio_modelo
         )
         vehiculo.save()
+        messages.success(request, 'Vehículo guardado correctamente.')
         return redirect('/listadoVehiculos/')  # Redirige a la página de inicio después de guardar el vehículo
 
 def listadoVehiculos(request):
@@ -36,4 +38,5 @@ def listadoVehiculos(request):
 def eliminarVehiculo(request, id):
     vehiculoEliminar = Vehiculo.objects.get(id=id)
     vehiculoEliminar.delete()
+    messages.success(request, 'Vehículo eliminado correctamente.')
     return redirect('/listadoVehiculos/')
