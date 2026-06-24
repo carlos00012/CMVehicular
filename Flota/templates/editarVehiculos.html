@@ -1,0 +1,67 @@
+{% extends 'plantillaPrincipal.html' %}
+{% block contenido %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <br><br><br>
+            <h1><b>Editar Vehículo: {{ vehiculo.placa }}</b></h1>
+            <hr>
+            <form enctype="multipart/form-data" id="form_editar_vehiculo" action="/procesarActualizacionVehiculo/" method="post">
+                {% csrf_token %}
+                
+                <input type="hidden" name="id" value="{{ vehiculo.id }}">
+
+                <div class="mb-3">
+                    <label for="foto" class="form-label"><b>Foto real del vehículo:</b></label>
+                    <input  type="file" name="foto" id="foto" class="form-control" accept="image/*">
+                    <small class="text-muted">Dejar en blanco si no desea cambiar la foto actual.</small>
+                </div>
+
+                <div class="mb-3">
+                    <label for="placa" class="form-label"><b>Placa:</b></label>
+                    <input value="{{ vehiculo.placa }}" placeholder="Ingrese la placa del vehículo" type="text" class="form-control" name="placa" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="tipo_vehiculo" class="form-label"><b>Tipo de Vehículo:</b></label>
+                    <select class="form-select" name="tipo_vehiculo" required>
+                        <option value="Sedán" {% if vehiculo.tipo_vehiculo == "Sedán" %}selected{% endif %}>Sedán</option>
+                        <option value="Camioneta" {% if vehiculo.tipo_vehiculo == "Camioneta" %}selected{% endif %}>Camioneta</option>
+                        <option value="Camión" {% if vehiculo.tipo_vehiculo == "Camión" %}selected{% endif %}>Camión</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label d-block"><b>Tipo de Combustible:</b></label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="tipo_combustible" id="gasolina" value="Gasolina" {% if vehiculo.tipo_combustible == "Gasolina" %}checked{% endif %} required>
+                        <label class="form-check-label" for="gasolina">Gasolina</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="tipo_combustible" id="diesel" value="Diésel" {% if vehiculo.tipo_combustible == "Diésel" %}checked{% endif %}>
+                        <label class="form-check-label" for="diesel">Diésel</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="tipo_combustible" id="electrico" value="Eléctrico" {% if vehiculo.tipo_combustible == "Eléctrico" %}checked{% endif %}>
+                        <label class="form-check-label" for="electrico">Eléctrico</label>
+                    </div>
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" name="seguro_vigente" id="seguro_vigente" {% if vehiculo.seguro_vigente %}checked{% endif %}>
+                    <label class="form-check-label" for="seguro_vigente"><b>¿Tiene seguro vigente?</b></label>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label"><b>Año del Modelo:</b></label>
+                    <input value="{{ vehiculo.anio_modelo }}" placeholder="Ej: 2026" type="number" class="form-control" name="anio_modelo" required>
+                </div>
+
+                <button class="btn btn-success" type="submit"> <i class="icon-save"></i> Guardar Cambios</button>
+                o <a href="/listadoVehiculos/" class="btn btn-danger"> Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
