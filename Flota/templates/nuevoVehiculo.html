@@ -66,8 +66,24 @@
                     </div>
                 </div>
             </div>
+                <script>
+        $("#foto").fileinput({
+            language: "es",
+            allowedFileExtensions: ["png|jpg|jpeg"],
+            showCaption: false,
+            dropZoneEnabled: true,
+            showClose: false,
+
+        });
+        //con jquery podemos ocultar el boton de subir archivo
+        $(".fileinput-upload").hide();
+
+        
+    </script>
+            
     </section>
 
 
-</main>                
+</main>       
+         
 {% endblock %}

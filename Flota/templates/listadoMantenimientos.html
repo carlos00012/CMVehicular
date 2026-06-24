@@ -1,6 +1,10 @@
 {% extends 'plantillaPrincipal.html' %}
 {% load static %}
+
 {% block contenido %}
+<main class="main">
+  <section id="hero" class="hero section dark-background">
+    <img src="{% static 'assets/img/hero-bg.jpg' %}" class="hero-bg" alt="" data-aos="fade-in">
 <div class="container mt-5">
     
     {% if autos_excedidos %}
@@ -62,7 +66,9 @@
         </tbody>
     </table>
 </div>
+  </section>
 
+</main>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   new DataTable('#tbl_mantenimientos', {

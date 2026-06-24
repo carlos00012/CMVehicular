@@ -285,6 +285,8 @@ def eliminarVehiculo(request, id):
     if not request.user.is_authenticated or not es_gerente(request.user):
         return redirect('login')
     vehiculoEliminar = Vehiculo.objects.get(id=id)
+    if vehiculoEliminar.foto:
+        vehiculoEliminar.foto.delete()
     vehiculoEliminar.delete()
     messages.success(request, 'Vehículo eliminado correctamente.')
     return redirect('listado_vehiculos')
